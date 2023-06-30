@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-DEBUG = True
+DEBUG = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -40,15 +40,16 @@ else:
         "k4fwvxpydh^xsyybo&oq8np_izk*btsur&z!9fv+ny7ikq_&q!qt43tvwergwebbhbtwbhwvthwvhw"
     )
     # SECRET_KEY = os.environ['SECRET_KEY']
-    ALLOWED_HOSTS = ["127.0.0.1"]
+    ALLOWED_HOSTS = [""]
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "mydatabase",
-            "USER": "mydatabaseuser",
-            "PASSWORD": "mypassword",
-            "HOST": "socialpost_db_1",
-            "PORT": "5432",
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "py2s$testing",
+            "USER": "py2s",
+            "PASSWORD": "User227$",
+            # "PASSWORD": os.environ["MY_SQL_PASSWORD"],
+            "HOST": "py2s.mysql.pythonanywhere-services.com",
+            "PORT": "3306",
         }
     }
 

@@ -36,4 +36,6 @@ python3 manage.py runserver
 There you have it working...
 
 
+Provide password in the production server with,
 
+`export MY_SQL_PASSWORD='<password_here>'`
