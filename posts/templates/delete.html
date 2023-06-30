@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+<div
+  class="container col border border-info rounded m-1 p-5"
+  style="min-height: 85vh"
+>
+  <div class="my-5 mx-5">
+    <form method="POST">
+      {% csrf_token %} {% if has_permission %}
+      <h5 class="ml-5 mb-3">Are you sure you want to Delete the Object?</h5>
+      <h7 class="ml-5 mt-5"
+        >Are your sure to delete <b><i>{{ obj.content }}</i></b> ?</h7
+      >
+      <br />
+      <button type="submit" class="btn btn-danger mt-3 ml-5">Delete</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

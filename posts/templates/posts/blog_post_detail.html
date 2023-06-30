@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container col border border-info rounded m-1 p-5" style="min-height: 89vh">
+  {% if object.picture %}
+  <img src="{{ object.picture }}" class="img-fluid" alt="Blog Cover Page"></img>
+  {% else %}
+  <img src="/media/images/alt.jpg" class="img-fluid" alt="Generic Serene Nature pic"></img>
+  {% endif %}
+  <p>
+    Published: {{ object.published_date_time }}
+    <br />
+    Last Updated: {{ object.last_modified }}
+    <br />
+    Author: {{ object.user_id }}
+    <br />
+    KeyWords:
+    {% for kw in object.kws.values %}
+    <a href="{% url 'posts:kwlist' kw.keyword %}">{{ kw.keyword }}</a>
+    {% endfor %}
+  </p>
+  <h1 class="text-center">{{ object.title }}</h1>
+
+  <p>{{ object.description }}</p>
+  <p>{{ object.content }}</p>
+</div>
+{% endblock %}

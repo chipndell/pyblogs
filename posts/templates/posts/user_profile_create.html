@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<div
+  class="container col border border-info rounded m-1 p-5"
+  style="min-height: 85vh"
+>
+  {{ form.as_p }}
+  <button>Submit</button>
+  <button>Reset</button>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+version: "3.8"
+   
+services:
+  jenkins:
+    image: jenkins/jenkins
+    user: root
+    ports:
+      - "8080:8080"
+    networks:
+      host:
+      
+#  db:
+#    image: postgres
+#    network_mode: host
+#    environment:
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#    depends_on:
+#      - jenkins
+#    		
+#  web:
+#    build: .
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/socialpost
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+#      - jenkins
+#		 deploy:
+#			 replicas: 1
+networks:
+  host:

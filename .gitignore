@@ -1,0 +1,13 @@
+media
+venv
+static_for_server
+posts/migrations/*
+
+!posts/migrations/__init__.py
+
+__pycache__
+*/__pycache__
+*/*/__pycache__
+*.pyc
+*/*.pyc
+*/*/*.pyc

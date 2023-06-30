@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container col border border-info rounded m-1 p-5" style="min-height: 85vh">
+  <div class="my-5 mx-5">
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-success mt-3 ml-5">Update</button>
+      <button type="reset" class="btn btn-danger mt-3 ml-5">Reset</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
