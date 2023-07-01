@@ -37,7 +37,7 @@ class BlogPostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "explore" in self.request.path:
+        if "mypost" not in self.request.path:
             queryset = Blog_Post.objects.select_related("user_id").prefetch_related(
                 "kws"
             )[::-1]
@@ -147,9 +147,9 @@ class KWListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["object_list"] = Blog_Post.objects.filter(
-            kws__keyword=self.kwargs["keyword"]
-        )[::-1]
+        queryset = Blog_Post.objects.filter(kws__keyword=self.kwargs["keyword"])[::-1]
+        if queryset:
+            context["object_list"] = queryset
         return context
 
 

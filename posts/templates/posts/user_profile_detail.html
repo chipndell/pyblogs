@@ -5,13 +5,12 @@
   {% if object.profile_pic %}
   <p class="mb-3 col">
     <label for="profile_pic" class="row form-label">Profile Pic</label>
-    <img class="img-fluid" src="{{ object.profile_pic.url }}" alt="User display Picture" />
+    <img class="img-fluid" src="{{ object.profile_pic.url }}" alt="User display Picture">
   </p>
   {% else %}
   <p class="mb-3 col">
     <label for="profile_pic" class="row form-label">Profile Pic</label>
-    <img class="img-fluid" src="{% static 'images/dp.png' %}" alt="Generic User display Picture" />
-    <!-- <img class="img-fluid" src="{% static 'images/dp.png' %}" alt="Generic User display Picture" /> -->
+    <img class="img-fluid" src="{% static 'images/dp.png' %}" alt="Generic User display Picture">
   </p>
   {% endif %}
 

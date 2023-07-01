@@ -1,5 +1,6 @@
 media
 venv
+backup.json
 static_for_server
 posts/migrations/*
 

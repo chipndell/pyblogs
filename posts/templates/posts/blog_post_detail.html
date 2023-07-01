@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container col border border-info rounded m-1 p-5">
   {% if object.picture %}
-  <img src="{{ object.picture }}" class="img-fluid" alt="Blog Cover Page"></img>
+  <img src="{{ object.picture.url }}" class="img-fluid" alt="Blog Cover Page">
   {% else %}
-  <img src="/media/images/alt.jpg" class="img-fluid" alt="Generic Serene Nature pic"></img>
+  <img src="{% static 'images/alt.jpg' %}" class="img-fluid" alt="Generic Serene Nature pic">
   {% endif %}
   <p>
     Published: {{ object.published_date_time }}

@@ -23,7 +23,7 @@ app_name = "posts"
 urlpatterns = [
     # path("keywards/<int:id>/", KWListView.as_view(), name="kwlist"),
     path("keywards/<slug:keyword>/", KWListView.as_view(), name="kwlist"),
-    path("", login_view),
+    path("", BlogPostListView.as_view()),
     path("login/", login_view, name="login"),
     path("signup/", signup_view, name="signup"),
     path("logout/", logout_view, name="logout"),
