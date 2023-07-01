@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block head %}
 <title>{{ request.user }} Profile | Fact Post</title>
 {% endblock %} {% block content %}
-<div class="container-fluid shadow col border border-info rounded m-1 p-5" style="min-height: 89vh">
+<div class="container-fluid shadow col border border-info rounded m-1 p-5">
   <div class="ml-auto mr-auto">
     {% for item in object_list %}
     <div class="card container shadow border border-primary rounded mt-3 mb-4">

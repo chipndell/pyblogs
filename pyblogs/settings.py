@@ -40,7 +40,7 @@ else:
         "k4fwvxpydh^xsyybo&oq8np_izk*btsur&z!9fv+ny7ikq_&q!qt43tvwergwebbhbtwbhwvthwvhw"
     )
     # SECRET_KEY = os.environ['SECRET_KEY']
-    ALLOWED_HOSTS = [""]
+    ALLOWED_HOSTS = ["https://py2s.pythonanywhere.com/"]
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -62,9 +62,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
+    # "rest_framework",
     "posts.apps.PostsConfig",
 ]
+
+AUTH_USER_MODEL = "auth.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

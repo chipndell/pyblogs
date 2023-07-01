@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<div class="container col border border-info rounded m-1 p-5" style="min-height: 85vh">
+<div class="container col border border-info rounded m-1 p-5">
   <form enctype="multipart/form-data" method="POST">
     {% csrf_token %} {{ form.as_p }}
     <button type="submit" class="btn btn-primary mt-3 ml-5">Update</button>

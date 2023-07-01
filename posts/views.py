@@ -47,7 +47,7 @@ class BlogPostListView(ListView):
             queryset = (
                 Blog_Post.objects.select_related("user_id")
                 .prefetch_related("kws")
-                .filter(id=self.request.user.id)[::-1]
+                .filter(user_id=self.request.user.id)[::-1]
             )
             context["object_list"] = queryset
         return context
@@ -88,17 +88,7 @@ class BlogPostDetailView(DetailView):
 
 class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog_Post
-    # form_class = Blog_Post_Form
-    fields = [
-        "username",
-        "first_name",
-        "last_name",
-        "email",
-        "cell_no",
-        "personal_web",
-        "profile_pic",
-        "nick_name",
-    ]
+    form_class = Blog_Post_Form
     template_name_suffix = "_update"
     success_url = "/posts/explore"
 
@@ -108,11 +98,8 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     template_name_suffix = "_detail"
 
     def get_object(self):
-        import pdb
-
-        pdb.set_trace()
-        slug = self.kwargs.get("slug")
-        obj = get_object_or_404(Blog_Post, slug=slug)
+        pk = self.kwargs.get("pk")
+        obj = get_object_or_404(User_Profile, user_id=pk)
         return obj
 
 

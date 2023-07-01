@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils.text import slugify
-from django.contrib.auth.models import AbstractUser
 
 lk_dk = [("no", "None"), ("lk", "Like"), ("dk", "Dislike")]
 
@@ -15,17 +14,7 @@ class TechKW(models.Model):
 
 
 class User_Profile(models.Model):
-    # username = models.CharField(null=False, blank=False, unique=True, max_length=32)
-    # first_name = models.CharField(max_length=32, null=True, blank=True)
-    # last_name = models.CharField(max_length=32, null=True, blank=True)
-    # email = models.CharField(max_length=64, unique=True, null=True, blank=True)
-    # is_active = models.BooleanField(default=False, null=True, blank=True)
-    # is_staff = models.BooleanField(default=False, null=True, blank=True)
-    # is_superuser = models.BooleanField(default=False, null=True, blank=True)
-    # password = models.CharField(max_length=64, null=False, blank=False)
-    # date_joined = models.DateField(auto_now_add=True, null=True, blank=True)
-    # last_login = models.DateTimeField(auto_now=True, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     cell_no = models.IntegerField(
         null=True, blank=True, validators=[RegexValidator(code="[0-9]")]
     )

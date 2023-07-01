@@ -10,47 +10,49 @@
   {% block head %} {% endblock %}
 </head>
 
-<body>
-  <div class="container col"></div>
-  <div class="container col-6">
-    <div class="container">
-      {% load static %}
-      <nav class="container shadow justify-content-between row pt-3 mb-3">
-        <div class="col-auto">
-          <a href="{% url 'posts:explore' %}">
-            <img src="{% static 'images/logo.png' %}" style="height: 50px; width: 300" />
-          </a>
+<body class="container-fluid">
+  <div class="row">
+    <div class="container col"></div>
+    <div style="min-height: 100vh;" class="container col-8 d-flex flex-column">
+      <div class="container">
+        {% load static %}
+        <nav class="container shadow justify-content-between row pt-3 mb-3">
+          <div class="col-auto">
+            <a href="{% url 'posts:explore' %}">
+              <img src="{% static 'images/logo.png' %}" style="height: 50px; width: 300" />
+            </a>
+          </div>
+          <div class="col-auto">
+            {% if request.user.is_authenticated %}
+            <a class="p-2" href="{% url 'posts:create' %}">Create</a>
+            <a class="p-2" href="{% url 'posts:myposts' %}">My Posts</a>
+            <a class="p-2" href="{% url 'posts:explore' %}">Explore</a>
+            <a class="p-2" href="{% url 'posts:profiledetail' request.user.id %}">
+              Profile
+            </a>
+            <a class="p-2" href="/logout/">Logout</a>
+            {% else %}
+            <a class="p-2" href="/login/">Login</a>
+            <a class="p-2" href="/signup/">Signup</a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+      {% if messages %} {% for message in messages %} {% if message.tags %}
+      <div class="cotainer-md text-center alert alert-{{ message.tags }} pt-3" role="alert">
+        {{ message }}
+      </div>
+      {% endif %} {% endfor %} {% endif %} {% block content %} {% endblock %}
+      <div class="container row">
+        <div class="row text-center px-5">
+          <div class="col px-2"><a href="/aboutme">About Me</a></div>
+          <div class="col px-2"><a href="/contactus">Contact Us</a></div>
+          <div class="col px-2"><a href="/terms/">Terms of Use</a></div>
         </div>
-        <div class="col-auto">
-          {% if request.user.is_authenticated %}
-          <a class="p-2" href="{% url 'posts:create' %}">Create</a>
-          <a class="p-2" href="{% url 'posts:myposts' %}">My Posts</a>
-          <a class="p-2" href="{% url 'posts:explore' %}">Explore</a>
-          <a class="p-2" href="{% url 'posts:profiledetail' request.user.id %}">
-            Profile
-          </a>
-          <a class="p-2" href="/logout/">Logout</a>
-          {% else %}
-          <a class="p-2" href="/login/">Login</a>
-          <a class="p-2" href="/signup/">Signup</a>
-          {% endif %}
-        </div>
-      </nav>
-    </div>
-    {% if messages %} {% for message in messages %} {% if message.tags %}
-    <div class="cotainer-md text-center alert alert-{{ message.tags }} pt-3" role="alert">
-      {{ message }}
-    </div>
-    {% endif %} {% endfor %} {% endif %} {% block content %} {% endblock %}
-    <div class="container row">
-      <div class="row text-center px-5">
-        <div class="col px-2"><a href="/aboutme">About Me</a></div>
-        <div class="col px-2"><a href="/contactus">Contact Us</a></div>
-        <div class="col px-2"><a href="/terms/">Terms of Use</a></div>
       </div>
     </div>
+    <div class="container col"></div>
   </div>
-  <div class="container col"></div>
 </body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
   integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

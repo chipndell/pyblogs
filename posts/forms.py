@@ -65,7 +65,7 @@ class Blog_Post_Form(forms.ModelForm):
         fields = ["title", "description", "content", "picture", "files", "kws"]
 
 
-class UserProfileForm(UserCreationForm):
+class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for key in self._meta.fields:
