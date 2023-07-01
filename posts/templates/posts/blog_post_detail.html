@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div class="container col border border-info rounded m-1 p-5">
   {% if object.picture %}
   <img src="{{ object.picture.url }}" class="img-fluid" alt="Blog Cover Page">

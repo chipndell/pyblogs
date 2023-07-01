@@ -36,13 +36,13 @@ if DEBUG:
         }
     }
 else:
-    ALLOWED_HOSTS = ["http://py2s.pythonanywhere.com/"]
+    ALLOWED_HOSTS = ["py2s.pythonanywhere.com"]
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": "py2s$testing",
             "USER": "py2s",
-            "PASSWORD": os.environ["MY_SQL_PASSWORD"],
+            "PASSWORD": "User227$",
             "HOST": "py2s.mysql.pythonanywhere-services.com",
             "PORT": "3306",
         }

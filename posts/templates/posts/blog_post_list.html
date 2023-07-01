@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <title>{{ request.user }} Profile | Fact Post</title>
 {% endblock %} {% block content %}
 <div class="container-fluid shadow col border border-info rounded m-1 p-5">
@@ -44,12 +44,10 @@
         {% if item.user_id == request.user %}
         <a class="col text-center pb-3" href="{% url 'posts:update' item.slug %}">
           <button class="btn btn-secondary">
-            {% load static %}
             <img src="{% static 'images/edit.svg' %}" width="100" height="25">
           </button>
         </a>
         <a class="col text-center pb-3" href="{% url 'posts:delete' item.slug %}">
-          {% load static %}
           <button class="btn btn-danger">
             <img src="{% static 'images/delete.svg' %}" width="100" height="25">
           </button>
