@@ -18,15 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-DEBUG = False
+DEBUG = os.environ["DEBUG"]
 
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if DEBUG:
-    SECRET_KEY = (
-        "k4fwvxpydh^xsyybo&oq8np_izk*btsur&z!9fv+ny7ikq_&q!qt43tvwergwebbhbtwbhwvthwvhw"
-    )
-    ALLOWED_HOSTS = ["127.0.0.1"]
     # Database
     # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
     DATABASES = {
@@ -36,18 +34,12 @@ if DEBUG:
         }
     }
 else:
-    SECRET_KEY = (
-        "k4fwvxpydh^xsyybo&oq8np_izk*btsur&z!9fv+ny7ikq_&q!qt43tvwergwebbhbtwbhwvthwvhw"
-    )
-    # SECRET_KEY = os.environ['SECRET_KEY']
-    ALLOWED_HOSTS = ["https://py2s.pythonanywhere.com/"]
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
             "NAME": "py2s$testing",
             "USER": "py2s",
-            "PASSWORD": "User227$",
-            # "PASSWORD": os.environ["MY_SQL_PASSWORD"],
+            "PASSWORD": os.environ["MY_SQL_PASSWORD"],
             "HOST": "py2s.mysql.pythonanywhere-services.com",
             "PORT": "3306",
         }
