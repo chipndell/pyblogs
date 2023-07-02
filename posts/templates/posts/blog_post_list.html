@@ -1,61 +1,59 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
 <title>{{ request.user }} Profile | Fact Post</title>
 {% endblock %} {% block content %}
-<div class="container-fluid shadow col border border-info rounded m-1 p-5">
-  <div class="ml-auto mr-auto">
-    {% for item in object_list %}
-    <div class="card container shadow border border-primary rounded mt-3 mb-4">
-      {% if item.picture %}
-      <img class="img-fluid pt-3" src="{{ item.picture.url }}" alt="cover picture for blog" style="max-height: 12rem;">
-      {% else %}
-      <img class="img-fluid pt-3" src="{% static 'images/alt.jpg' %}" alt="serene picture of nature">
-      {% endif %}
-      <div class="card-body">
-        <a href="{% url 'posts:detail' item.slug %}">
-          <h5 class="px-3">{{ item.title }}</h5>
-        </a>
-        <div class="container">
-          <div class="row justify-content-around">
-            <div class="col-2">
-              <p>
-                <img src="/static/images/dp.png" class="img-thumbnail float-right rounded-circle"
-                  alt="Blog Auther Profile Pic" style="max-height: 5rem;">
-              </p>
-            </div>
-            <div class="col">
-              {{ item.user_id }} <br />
-              <i>Published:</i> {{ item.published_date_time }} <br />
-            </div>
+<div class="container-md ml-auto mr-auto">
+  {% for item in object_list %}
+  <div class="card container shadow border border-primary rounded mt-3 mb-4">
+    {% if item.picture %}
+    <img class="img-fluid pt-3" src="{{ item.picture.url }}" alt="cover picture for blog" style="max-height: 12rem;">
+    {% else %}
+    <img class="img-fluid pt-3" src="{% static 'images/alt.jpg' %}" alt="serene picture of nature">
+    {% endif %}
+    <div class="card-body">
+      <a href="{% url 'posts:detail' item.slug %}">
+        <h5 class="px-3">{{ item.title }}</h5>
+      </a>
+      <div class="container">
+        <div class="row justify-content-around">
+          <div class="col-2">
+            <p>
+              <img src="/static/images/dp.png" class="img-thumbnail float-right rounded-circle"
+                alt="Blog Auther Profile Pic" style="max-height: 5rem;">
+            </p>
           </div>
-          Keywords:
-          {% for kw in item.kws.values %}
-          <a href="{% url 'posts:kwlist' kw.keyword %}">{{ kw.keyword }}</a>
-          {% endfor %}
+          <div class="col">
+            {{ item.user_id }} <br />
+            <i>Published:</i> {{ item.published_date_time }} <br />
+          </div>
         </div>
-      </div>
-      {% if item.files %}
-      <p>
-        File Attached : ><a href="/media/{{ item.files }}">
-          {{ item.files.name|slice:"6:" }}
-        </a>
-      </p>
-      {% endif %}
-      <div class="container row">
-        {% if item.user_id == request.user %}
-        <a class="col text-center pb-3" href="{% url 'posts:update' item.slug %}">
-          <button class="btn btn-secondary">
-            <img src="{% static 'images/edit.svg' %}" width="100" height="25">
-          </button>
-        </a>
-        <a class="col text-center pb-3" href="{% url 'posts:delete' item.slug %}">
-          <button class="btn btn-danger">
-            <img src="{% static 'images/delete.svg' %}" width="100" height="25">
-          </button>
-        </a>
-        {% endif %}
+        Keywords:
+        {% for kw in item.kws.values %}
+        <a href="{% url 'posts:kwlist' kw.keyword %}">{{ kw.keyword }}</a>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
+    {% if item.files %}
+    <p>
+      File Attached : ><a href="/media/{{ item.files }}">
+        {{ item.files.name|slice:"6:" }}
+      </a>
+    </p>
+    {% endif %}
+    <div class="container row">
+      {% if item.user_id == request.user %}
+      <a class="col text-center pb-3" href="{% url 'posts:update' item.slug %}">
+        <button class="btn btn-secondary">
+          <img src="{% static 'images/edit.svg' %}" width="100" height="25">
+        </button>
+      </a>
+      <a class="col text-center pb-3" href="{% url 'posts:delete' item.slug %}">
+        <button class="btn btn-danger">
+          <img src="{% static 'images/delete.svg' %}" width="100" height="25">
+        </button>
+      </a>
+      {% endif %}
+    </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}
