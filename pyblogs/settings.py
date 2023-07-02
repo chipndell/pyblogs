@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     "posts.apps.PostsConfig",
 ]
 
-AUTH_USER_MODEL = "auth.User"
+AUTH_USER_MODEL = "posts.User_Profile"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

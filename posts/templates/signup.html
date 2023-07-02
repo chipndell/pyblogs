@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="container col m-1 p-5">
+<div class="container col-6 m-1 p-5">
 	<h4 style="text-align: left;">Sign In</h4>
 	<div class="container mt-5 p-3" stlye="align-items: flex-end">
 		<form method="post">{% csrf_token %}
 			{{ form.as_p }}
-			<input class="m-3" type="submit" name="submit" value="Submit">
-			<input type="reset" name="reset" value="Reset"></input>
+			<input class="btn btn-primary mx-2" type="submit" name="Submit" value="Submit">
+			<input class="btn btn-danger mx-2" type="reset" name="Reset" value="Reset">
 		</form>
 	</div>
 </div>

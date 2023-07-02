@@ -5,18 +5,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="container col m-1 p-5">
+<div class="d-flex justify-content-end container row m-1 p-5">
 	<div class='mb-5'>
 		<h1 class="mt-5 mb-5">Welcome to Pyblogs</h1>
 		<h6 class="mb-5">A blog post site to let you know of all how to do with cool latest techs.</h6>
 	</div>
-	<div class="container pt-3 text-end">
+	<div class="col-6">
 		<form method="post">{% csrf_token %}
-			<p class="justify-content-end font-weight-normal">
-			<h3 class="pb-3">Enter your login crednetials.</h3>
+			<p>
+			<h3>Enter your login crednetials.</h3>
 			</p>
 			{{ form.as_p }}
-			<span class="justify-content-end">
+			<span>
 				<input class="btn btn-primary mx-2" type="submit" name="Submit" value="Submit">
 				<input class="btn btn-danger mx-2" type="reset" name="Reset" value="Reset">
 			</span>

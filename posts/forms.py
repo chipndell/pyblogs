@@ -1,10 +1,9 @@
 from django import forms
-from .models import Blog_Post, User_Profile, TechKW
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 import filetype
+from .models import Blog_Post, User_Profile, TechKW
 
 
 class Blog_Post_Form(forms.ModelForm):
@@ -72,11 +71,14 @@ class UserProfileForm(forms.ModelForm):
         for key in self._meta.fields:
             self.fields[key].widget.attrs.update({"class": "row-auto form-control"})
 
-    cell_no = forms.IntegerField(max_value=9999999999, min_value=999999999)
+    cell_no = forms.IntegerField(
+        max_value=9999999999, min_value=999999999, required=False
+    )
     personal_web = forms.URLField()
     profile_pic = forms.ImageField(
         label=_("Profile Picture"),
         help_text="Select Image as your Profile Picture",
+        required=False,
     )
     nick_name = forms.CharField(
         label=_("Nick Name"),
@@ -104,9 +106,23 @@ class User_signup(UserCreationForm):
             self.fields[key].widget.attrs.update({"class": "row-auto form-control"})
 
     class Meta:
-        model = User
+        model = User_Profile
         fields = [
             "username",
             "password1",
             "password2",
+        ]
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key in self.fields:
+            self.fields[key].widget.attrs.update({"class": "form-control"})
+
+    class Meta:
+        model = User_Profile
+        fields = [
+            "username",
+            "password",
         ]
