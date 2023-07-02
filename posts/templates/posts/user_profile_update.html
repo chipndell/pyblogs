@@ -2,6 +2,9 @@
 <div class="container col border border-info rounded m-1 p-5">
   <div class="my-5 mx-5">
     <form method="POST">
+      {% if object.profile_pic %}
+      <img src="{{ object.profile_pic.url }}" height="150px" width="150px">
+      {% endif %}
       {% csrf_token %} {{ form.as_p }}
       <button type="submit" class="btn btn-success mt-3 ml-5">Update</button>
       <button type="reset" class="btn btn-danger mt-3 ml-5">Reset</button>

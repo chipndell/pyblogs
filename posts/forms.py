@@ -48,14 +48,15 @@ class Blog_Post_Form(forms.ModelForm):
         ):
             raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
         picture = self.cleaned_data["picture"]
-        if picture and "image" not in filetype.guess(picture).mime:
-            raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
-        if picture.size / (1024 * 1024) > 2:
-            raise ValidationError("Image size exceeds 2MB")
+        if picture:
+            if "image" not in filetype.guess(picture).mime:
+                raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
+            if picture.size / (1024 * 1024) > 2:
+                raise ValidationError("Image size exceeds 2MB")
         files = self.cleaned_data["files"]
         if files:
             mime = filetype.guess(files).mime
-            if "pdf" not in mime or "zip" not in mime:
+            if "pdf" not in mime and "zip" not in mime:
                 raise ValidationError("Only `pdf`, `zip` and files are allowed.")
             if files.size / (1024 * 1024) > 2:
                 raise ValidationError("File size exceeds 2MB")
@@ -81,7 +82,8 @@ class UserProfileForm(forms.ModelForm):
         label=_("Nick Name"),
         strip=True,
         help_text="Enter your Nick name here",
-        min_length=15,
+        min_length=1,
+        max_length=16,
         required=False,
     )
 
