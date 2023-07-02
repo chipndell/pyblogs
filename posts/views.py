@@ -1,20 +1,10 @@
 import markdown
-from .models import TechKW
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import Group, User
-from django.db import models
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-
-
-def md_to_html(data):
-    return markdown.markdown(data)
-
-
+from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -22,13 +12,18 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .serializer import PostSerializer
 
-from .forms import Blog_Post_Form, User_signup, UserProfileForm
-from .models import Blog_Post, User_Profile
+# from rest_framework import status
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from .serializer import PostSerializer
+
+from .forms import Blog_Post_Form, User_signup, UserProfileForm, LoginForm
+from .models import Blog_Post, User_Profile, TechKW
+
+
+def md_to_html(data):
+    return markdown.markdown(data)
 
 
 class BlogPostListView(ListView):
@@ -38,14 +33,14 @@ class BlogPostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if "mypost" not in self.request.path:
-            queryset = Blog_Post.objects.select_related("user_id").prefetch_related(
-                "kws"
-            )[::-1]
+            queryset = Blog_Post.objects.select_related("user").prefetch_related("kws")[
+                ::-1
+            ]
             context["object_list"] = queryset
             return context
         else:
             queryset = (
-                Blog_Post.objects.select_related("user_id")
+                Blog_Post.objects.select_related("user")
                 .prefetch_related("kws")
                 .filter(user_id=self.request.user.id)[::-1]
             )
@@ -60,7 +55,7 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
     success_url = "/posts/explore"
 
     def form_valid(self, form):
-        form.instance.user_id = self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 
@@ -99,7 +94,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         pk = self.kwargs.get("pk")
-        obj = get_object_or_404(User_Profile, user_id=pk)
+        obj = get_object_or_404(User_Profile, id=pk)
         return obj
 
 
@@ -121,24 +116,24 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name_suffix = "_update"
 
 
-class APIPostList(APIView):
-    def get(self, request):
-        posts = Blog_Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+# class APIPostList(APIView):
+#     def get(self, request):
+#         posts = Blog_Post.objects.all()
+#         serializer = PostSerializer(posts, many=True)
+#         return Response(serializer.data)
 
 
-class APIPostDetail(APIView):
-    def get_object(self, id):
-        try:
-            return Blog_Post.objects.get(id=id)
-        except Blog_Post.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+# class APIPostDetail(APIView):
+#     def get_object(self, id):
+#         try:
+#             return Blog_Post.objects.get(id=id)
+#         except Blog_Post.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def get(self, request, id):
-        post = self.get_object(id)
-        ser = PostSerializer(post)
-        return Response(ser.data)
+#     def get(self, request, id):
+#         post = self.get_object(id)
+#         ser = PostSerializer(post)
+#         return Response(ser.data)
 
 
 class KWListView(ListView):
@@ -155,7 +150,7 @@ class KWListView(ListView):
 
 def login_view(request):
     context = {}
-    form = AuthenticationForm()
+    form = LoginForm()
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -178,11 +173,11 @@ def signup_view(request):
         if password1 != password2:
             messages.warning(request, "Passwords do not match!")
             return redirect("signup")
-        user = User.objects.create_user(
+        user = User_Profile.objects.create_user(
             username=username,
             password=password1,
         )
-        g = Group.objects.get(name="EndUsers")
+        g = Group.objects.get(name="EndUser")
         user.groups.add(g)
         messages.success(request, "Account creation is successful!")
         return redirect("/login/")

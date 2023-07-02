@@ -16,13 +16,16 @@
       <div class="container">
         <div class="row justify-content-around">
           <div class="col-2">
-            <p>
-              <img src="/static/images/dp.png" class="img-thumbnail float-right rounded-circle"
-                alt="Blog Auther Profile Pic" style="max-height: 5rem;">
-            </p>
+            {% if item.user.profile_pic %}
+            <img src="{{item.user.profile_pic.url}}" class="img-thumbnail float-right rounded-circle"
+              alt="Blog Auther Profile Pic" style="max-height: 5rem;">
+            {% else %}
+            <img src="/static/images/dp.png" class="img-thumbnail float-right rounded-circle"
+              alt="Blog Auther Profile Pic" style="max-height: 5rem;">
+            {% endif %}
           </div>
           <div class="col">
-            {{ item.user_id }} <br />
+            {{ item.user.username }} <br />
             <i>Published:</i> {{ item.published_date_time }} <br />
           </div>
         </div>
@@ -40,7 +43,7 @@
     </p>
     {% endif %}
     <div class="container row">
-      {% if item.user_id == request.user %}
+      {% if item.user == request.user %}
       <a class="col text-center pb-3" href="{% url 'posts:update' item.slug %}">
         <button class="btn btn-secondary">
           <img src="{% static 'images/edit.svg' %}" width="100" height="25">

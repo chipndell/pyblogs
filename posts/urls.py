@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from .views import (
     BlogPostDetailView,
     BlogPostListView,
@@ -9,8 +9,8 @@ from .views import (
     ProfileCreateView,
     ProfileUpdateView,
     KWListView,
-    APIPostDetail,
-    APIPostList,
+    # APIPostDetail,
+    # APIPostList,
     login_view,
     signup_view,
     logout_view,
@@ -21,7 +21,7 @@ from .views import (
 
 app_name = "posts"
 urlpatterns = [
-    # path("keywards/<int:id>/", KWListView.as_view(), name="kwlist"),
+    path("keywards/<int:id>/", KWListView.as_view(), name="kwlist"),
     path("keywards/<slug:keyword>/", KWListView.as_view(), name="kwlist"),
     path("", BlogPostListView.as_view()),
     path("login/", login_view, name="login"),
