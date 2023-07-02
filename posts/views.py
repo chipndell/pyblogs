@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.conf import settings
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -173,11 +173,11 @@ def signup_view(request):
         if password1 != password2:
             messages.warning(request, "Passwords do not match!")
             return redirect("signup")
-        user = User.objects.create_user(
+        user = User_Profile.objects.create_user(
             username=username,
             password=password1,
         )
-        g = Group.objects.get(name="EndUsers")
+        g = Group.objects.get(name="EndUser")
         user.groups.add(g)
         messages.success(request, "Account creation is successful!")
         return redirect("/login/")
