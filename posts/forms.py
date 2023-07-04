@@ -6,6 +6,24 @@ import filetype
 from .models import Blog_Post, User_Profile, TechKW
 
 
+def clean_image(img):
+    if img:
+        mime = filetype.guess(img).mime
+        if "image" not in mime:
+            raise ValidationError("Not a valid image")
+        if img.size / (1024 * 1024) > 2:
+            raise ValidationError("Image size exceeds 2MB")
+
+
+def clean_file(file):
+    if file:
+        mime = filetype.guess(file).mime
+        if "pdf" not in mime and "zip" not in mime:
+            raise ValidationError("Only `pdf`, `zip` and files are allowed.")
+        if file.size / (1024 * 1024) > 2:
+            raise ValidationError("File size exceeds 2MB")
+
+
 class Blog_Post_Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -46,19 +64,10 @@ class Blog_Post_Form(forms.ModelForm):
             ">" in (content, title, description)
         ):
             raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
-        picture = self.cleaned_data["picture"]
-        if picture:
-            if "image" not in filetype.guess(picture).mime:
-                raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
-            if picture.size / (1024 * 1024) > 2:
-                raise ValidationError("Image size exceeds 2MB")
-        files = self.cleaned_data["files"]
-        if files:
-            mime = filetype.guess(files).mime
-            if "pdf" not in mime and "zip" not in mime:
-                raise ValidationError("Only `pdf`, `zip` and files are allowed.")
-            if files.size / (1024 * 1024) > 2:
-                raise ValidationError("File size exceeds 2MB")
+        picture = self.files["picture"]
+        clean_image(picture)
+        files = self.files["files"]
+        clean_file(files)
 
     class Meta:
         model = Blog_Post
@@ -79,6 +88,7 @@ class UserProfileForm(forms.ModelForm):
         label=_("Profile Picture"),
         help_text="Select Image as your Profile Picture",
         required=False,
+        widget=forms.ClearableFileInput,
     )
     nick_name = forms.CharField(
         label=_("Nick Name"),
@@ -88,6 +98,10 @@ class UserProfileForm(forms.ModelForm):
         max_length=16,
         required=False,
     )
+
+    def clean(self):
+        profile_pic = self.files["profile_pic"]
+        clean_image(profile_pic)
 
     class Meta:
         model = User_Profile
