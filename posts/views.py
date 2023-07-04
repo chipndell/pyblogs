@@ -24,7 +24,7 @@ from .models import Blog_Post, User_Profile, TechKW
 
 
 def deploy(request):
-    print(os.system("whoami"))
+    print("whoami", os.system("whoami"))
     os.system("cd ~/pyglogs")
     os.system("git pull -f origin master")
     os.system("touch /var/www/py2s_pythonanywhere_com_wsgi.py")
