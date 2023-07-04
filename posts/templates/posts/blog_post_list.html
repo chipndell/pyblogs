@@ -5,7 +5,7 @@
   {% for item in object_list %}
   <div class="card container shadow border border-primary rounded mt-3 mb-4">
     {% if item.picture %}
-    <img class="img-fluid pt-3" src="{{ item.picture.url }}" alt="cover picture for blog" style="max-height: 12rem;">
+    <img class="img-fluid pt-3" src="{{ item.picture.url }}" alt="cover picture for blog">
     {% else %}
     <img class="img-fluid pt-3" src="{% static 'images/alt.jpg' %}" alt="serene picture of nature">
     {% endif %}
