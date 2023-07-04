@@ -67,7 +67,7 @@ class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
     def get_object(self):
         slug = self.kwargs.get("slug")
         obj = get_object_or_404(Blog_Post, slug=slug)
-        if obj.user_id.id == self.request.user.id:
+        if obj.user.id == self.request.user.id:
             return obj
 
 
