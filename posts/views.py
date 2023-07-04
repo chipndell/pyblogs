@@ -1,3 +1,4 @@
+import os
 import markdown
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -20,6 +21,14 @@ from django.views.generic import (
 
 from .forms import Blog_Post_Form, User_signup, UserProfileForm, LoginForm
 from .models import Blog_Post, User_Profile, TechKW
+
+
+def deploy(request):
+    print(os.system("whoami"))
+    os.system("cd ~/pyglogs")
+    os.system("git pull -f origin master")
+    os.system("touch /var/www/py2s_pythonanywhere_com_wsgi.py")
+    print("Updated Deployment", request)
 
 
 def md_to_html(data):

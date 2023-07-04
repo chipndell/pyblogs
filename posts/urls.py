@@ -17,6 +17,7 @@ from .views import (
     aboutme,
     contactus,
     terms,
+    deploy,
 )
 
 app_name = "posts"
@@ -43,4 +44,5 @@ urlpatterns = [
     path("aboutme/", aboutme, name="aboutme"),
     path("contactus/", contactus, name="contactus"),
     path("terms/", terms, name="terms"),
+    path("deploy/", deploy, name="deploy"),
 ]
