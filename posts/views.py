@@ -1,11 +1,12 @@
 import os
+import requests
+import subprocess
 import markdown
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.conf import settings
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -13,6 +14,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 # from rest_framework import status
 # from rest_framework.views import APIView
@@ -23,12 +26,31 @@ from .forms import Blog_Post_Form, User_signup, UserProfileForm, LoginForm
 from .models import Blog_Post, User_Profile, TechKW
 
 
+@csrf_exempt
 def deploy(request):
-    print("whoami", os.system("whoami"))
-    os.system("cd ~/pyglogs")
-    os.system("git pull -f origin master")
-    os.system("touch /var/www/py2s_pythonanywhere_com_wsgi.py")
-    print("Updated Deployment", request)
+    server_hash = (
+        subprocess.check_output(
+            "git -C ~/pyblogs log -1 --pretty=format:%H", shell=True
+        )
+    ).decode("utf-8")
+    print("server_hash", server_hash)
+    gh_token = os.environ["PYBLOG_API_TOKEN"]
+    headers = {"Authorization": f"Bearer {gh_token}"}
+    headers["X-GitHub-Api-Version"] = "2022-11-28"
+    headers["Accept"] = "application/vnd.github+json"
+    src_hash = requests.get(
+        "https://api.github.com/repos/chipndell/pyblogs/commits", headers=headers
+    ).json()[0]["sha"]
+    print("src_hash", src_hash)
+    if not src_hash == server_hash:
+        subprocess.check_output(
+            "git -C ~/Documents/pyblogs pull -f origin master", shell=True
+        )
+        subprocess.check_output(
+            "touch /var/www/py2s_pythonanywhere_com_wsgi.py", shell=True
+        )
+        return HttpResponse("<p>Good Job!</p>", status=200)
+    return HttpResponse(status=403)
 
 
 def md_to_html(data):
