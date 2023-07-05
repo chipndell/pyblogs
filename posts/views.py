@@ -43,9 +43,7 @@ def deploy(request):
     ).json()[0]["sha"]
     print("src_hash", src_hash)
     if not src_hash == server_hash:
-        subprocess.check_output(
-            "git -C ~/Documents/pyblogs pull -f origin master", shell=True
-        )
+        subprocess.check_output("git -C ~/pyblogs pull -f origin master", shell=True)
         subprocess.check_output(
             "touch /var/www/py2s_pythonanywhere_com_wsgi.py", shell=True
         )
