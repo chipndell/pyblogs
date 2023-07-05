@@ -3,7 +3,7 @@
 clone the app to your convenient path with command for you bash shell:
 
 ```
-git clone https://github.com/mananbh9/socialpost.git
+git clone https://github.com/chipndell/pyblogs.git
 ```
 
 then to install the virtual env specific to the app run the folllowing command in terminal:
@@ -16,7 +16,7 @@ start the virtual env with command,
 
 ```
 source venv/bin/activate
-cd socialpost/
+cd pyblogs/
 ```
 
 To install all the dependencies related to this app run the follwing command:
