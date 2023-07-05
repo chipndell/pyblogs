@@ -18,11 +18,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-DEBUG = False
-
-SECRET_KEY = (
-    "k4fwvxpydh^xsyybo&oq8np_izk*btsur&z!9fv+ny7ikq_&q!qt43tvwergwebbhbtwbhwvthwvhw"
-)
+DEBUG = os.environ["DEBUG"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if DEBUG:
@@ -40,10 +37,10 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": "py2s$testing",
-            "USER": "py2s",
-            "PASSWORD": "User227$",
-            "HOST": "py2s.mysql.pythonanywhere-services.com",
+            "NAME": os.environ["MY_SQL_DATABASE"],
+            "USER": os.environ["MY_SQL_USER"],
+            "PASSWORD": os.environ["MY_SQL_PASSWORD"],
+            "HOST": os.environ["MY_SQL_HOST"],
             "PORT": "3306",
         }
     }
