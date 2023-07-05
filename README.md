@@ -38,4 +38,10 @@ There you have it working...
 
 Provide password in the production server with,
 
-`export MY_SQL_PASSWORD='<password_here>'`
+os.environ['SECRET'] = ''
+os.environ['DEBUG'] = ''
+os.environ['MY_SQL_PASSWORD'] = ''
+os.environ["HOST"] = ""
+os.environ["MY_SQL_USER"] = ""
+os.environ["MY_SQL_DATABASE"] = ""
+os.environ["PYBLOG_API_TOKEN"] = ""
