@@ -1,4 +1,6 @@
-media
+media/files/*
+media/images/dp/*
+media/images/*.*
 venv
 backup.json
 static_for_server
@@ -12,3 +14,7 @@ __pycache__
 *.pyc
 */*.pyc
 */*/*.pyc
+
+# temp ignore
+Dockerfile
+docker-compose.yml
