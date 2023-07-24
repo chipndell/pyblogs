@@ -25,3 +25,6 @@ Environment Variables for app
 - MY_SQL_USER
 - MY_SQL_DATABASE
 - PYBLOG_API_TOKEN
+
+(Frontend)[https://databox-frontend.s3.amazonaws.com/index.html#/]
+(Backend)[https://mb9.pythonanywhere.com/]
