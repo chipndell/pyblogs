@@ -2,6 +2,7 @@ media/files/*
 media/images/dp/*
 media/images/*.*
 venv
+db.sqlite3
 backup.json
 static_for_server
 posts/migrations/*
