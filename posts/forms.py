@@ -64,10 +64,12 @@ class Blog_Post_Form(forms.ModelForm):
             ">" in (content, title, description)
         ):
             raise ValidationError("Replace `<` with `&lt;` and `>` with `&gt;`")
-        picture = self.files["picture"]
-        clean_image(picture)
-        files = self.files["files"]
-        clean_file(files)
+        picture = self.files.get("picture", None)
+        if picture:
+            clean_image(picture)
+        files = self.files.get("files", None)
+        if files:
+            clean_file(files)
 
     class Meta:
         model = Blog_Post
